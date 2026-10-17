@@ -18,11 +18,8 @@ def calculate_baseline(
 
     The bounds are defined as mean +/- 2 standard deviations.
     """
-
     if column not in df.columns:
-        raise ValueError(
-            f"Column '{column}' not found in DataFrame."
-        )
+        raise ValueError(f"Column '{column}' not found in DataFrame.")
 
     values = pd.to_numeric(df[column], errors="coerce").dropna()
 
@@ -46,7 +43,6 @@ def calculate_baseline(
 def classify_against_baseline(
     value: float,
     baseline: dict,
-    lower_is_bad: bool = False,
 ) -> str:
     """
     Classify a value relative to its baseline.
@@ -55,11 +51,7 @@ def classify_against_baseline(
     - NORMAL
     - LOW
     - HIGH
-
-    lower_is_bad indicates whether a low value represents
-    a potential performance concern.
     """
-
     if value < baseline["lower_bound"]:
         return "LOW"
 
@@ -75,20 +67,19 @@ def add_baseline_status(
     baseline: dict,
 ) -> pd.DataFrame:
     """
-    Add a baseline status column to the DataFrame.
+    Add a baseline-status column to the DataFrame.
+
+    Missing values are classified as UNKNOWN.
     """
-
     result = df.copy()
-
     status_column = f"{column}_baseline_status"
 
     result[status_column] = result[column].apply(
-        lambda value: classify_against_baseline(
-            value,
-            baseline,
+        lambda value: (
+            classify_against_baseline(value, baseline)
+            if pd.notna(value)
+            else "UNKNOWN"
         )
-        if pd.notna(value)
-        else "UNKNOWN"
     )
 
     return result
