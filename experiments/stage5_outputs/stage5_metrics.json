@@ -1,0 +1,120 @@
+{
+  "dataset": {
+    "rows": 17280,
+    "columns": 26,
+    "sampling_interval": "5 minutes",
+    "synthetic_data": true,
+    "predictor_columns": [
+      "temperature",
+      "pressure",
+      "flow_rate",
+      "steam_flow",
+      "delta_p",
+      "production_load",
+      "U",
+      "U_rolling_1h",
+      "delta_p_rolling_1h",
+      "U_rolling_6h",
+      "delta_p_rolling_6h",
+      "U_change_1h",
+      "delta_p_change_1h",
+      "U_change_6h",
+      "delta_p_change_6h",
+      "U_lag_1h",
+      "delta_p_lag_1h",
+      "U_lag_6h",
+      "delta_p_lag_6h",
+      "U_baseline_status",
+      "delta_p_baseline_status"
+    ],
+    "excluded_predictor_columns": [
+      "timestamp",
+      "fouling_state",
+      "cleaning_event",
+      "sensor_anomaly",
+      "health_state"
+    ]
+  },
+  "fouling_risk_classification": {
+    "training_rows": 12096,
+    "validation_rows": 2592,
+    "test_rows": 2592,
+    "training_threshold_low_medium": 0.37544220175385684,
+    "training_threshold_medium_high": 0.5839421140621103,
+    "validation_accuracy": 0.9938271604938271,
+    "test_accuracy": 0.9772376543209876,
+    "test_balanced_accuracy": 0.9677445856743575,
+    "test_macro_f1": 0.9727760039082035,
+    "test_weighted_f1": 0.9771333049248648,
+    "test_classification_report": {
+      "HIGH_FOULING": {
+        "precision": 0.9813153961136024,
+        "recall": 1.0,
+        "f1-score": 0.990569596378725,
+        "support": 1313.0
+      },
+      "LOW_FOULING": {
+        "precision": 0.998003992015968,
+        "recall": 0.9380863039399625,
+        "f1-score": 0.9671179883945842,
+        "support": 533.0
+      },
+      "MEDIUM_FOULING": {
+        "precision": 0.9561752988047809,
+        "recall": 0.9651474530831099,
+        "f1-score": 0.9606404269513009,
+        "support": 746.0
+      },
+      "accuracy": 0.9772376543209876,
+      "macro avg": {
+        "precision": 0.9784982289781171,
+        "recall": 0.9677445856743575,
+        "f1-score": 0.9727760039082035,
+        "support": 2592.0
+      },
+      "weighted avg": {
+        "precision": 0.9775115801504773,
+        "recall": 0.9772376543209876,
+        "f1-score": 0.9771333049248648,
+        "support": 2592.0
+      }
+    }
+  },
+  "sensor_anomaly_detection": {
+    "training_rows": 12096,
+    "test_rows": 2592,
+    "predicted_anomalies": 8,
+    "actual_anomalies": 25,
+    "test_precision": 0.0,
+    "test_recall": 0.0,
+    "test_f1": 0.0,
+    "test_roc_auc": 0.7118659914296845,
+    "test_average_precision": 0.01755572624439846
+  },
+  "u_six_hour_forecasting": {
+    "forecast_horizon": "6 hours (72 five-minute steps)",
+    "training_rows": 12024,
+    "validation_rows": 2520,
+    "test_rows": 2520,
+    "validation_random_forest": {
+      "mae": 25.011219951312444,
+      "rmse": 42.611281569509366,
+      "r2": 0.06027780552524764
+    },
+    "validation_persistence_baseline": {
+      "mae": 14.893509940961744,
+      "rmse": 26.183797401428606,
+      "r2": 0.6451739016827152
+    },
+    "test_random_forest": {
+      "mae": 15.778902743965949,
+      "rmse": 29.47746455625671,
+      "r2": 0.37757612121675166
+    },
+    "test_persistence_baseline": {
+      "mae": 14.942216637286851,
+      "rmse": 24.032898819978225,
+      "r2": 0.5862687645235543
+    }
+  }
+}
